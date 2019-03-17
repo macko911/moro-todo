@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {css, cx} from 'emotion'
 
 const TodoItem = ({
-  value,
+  text,
   completed,
   index,
   removeTodo,
@@ -11,7 +11,7 @@ const TodoItem = ({
   toggleTodoState
 }) => {
   const [editing, setEditing] = useState(false)
-  const [newValue, setTodoValue] = useState(value)
+  const [newValue, setTodoValue] = useState(text)
 
   const onKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -24,7 +24,7 @@ const TodoItem = ({
     }
     if (e.key === 'Escape') {
       // reset todo value
-      setTodoValue(value)
+      setTodoValue(text)
       setEditing(false)
     }
   }
@@ -50,7 +50,7 @@ const TodoItem = ({
             className={cx(styles.value, completed && styles.completed)}
             onDoubleClick={() => setEditing(true)}
           >
-            {value}
+            {text}
           </span>
         )}
 
@@ -66,7 +66,7 @@ const TodoItem = ({
 }
 
 TodoItem.propTypes = {
-  value: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
   removeTodo: PropTypes.func.isRequired,

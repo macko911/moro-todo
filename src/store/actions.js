@@ -1,4 +1,5 @@
 import * as types from './types'
+import db from '../database'
 
 export const setTodos = (todos) => ({
   type: types.SET_TODOS,
@@ -34,20 +35,20 @@ export const editTodo = (index, value) => ({
   value
 })
 
-export const addTodo = (value) => (dispatch, getState) => {
+export const addTodo = (text) => (dispatch, getState) => {
   const {todos} = getState()
 
   // don't add empty todo
-  if (value === '') {
+  if (text === '') {
     return false
   }
   // if todo already added, skip it
-  if (todos.map(todo => todo.value).includes(value)) {
+  if (todos.map(todo => todo.text).includes(text)) {
     return false
   }
   // create new todo
   const newTodo = {
-    value,
+    text,
     completed: false
   }
   // add todo and reset input box
@@ -56,4 +57,14 @@ export const addTodo = (value) => (dispatch, getState) => {
     todo: newTodo
   })
   return true
+}
+
+export const fetchTodos = () => async (dispatch) => {
+  try {
+    const res = await db.fetchTodos()
+    const todos = res.data
+    dispatch(setTodos(todos))
+  } catch (err) {
+    console.log('Failed to fetch todos.')
+  }
 }
