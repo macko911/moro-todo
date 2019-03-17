@@ -1,7 +1,13 @@
 import React from 'react'
 
+import AddTodo from './AddTodo'
+
 const TodoApp = () => {
-  return <div>Todo app goes here...</div>
+  return (
+    <div>
+      <AddTodo />
+    </div>
+  )
 }
 
 export default TodoApp
