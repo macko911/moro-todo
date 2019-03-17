@@ -6,11 +6,23 @@ import {bindActionCreators} from 'redux'
 import * as actions from '../../store/actions'
 
 import AddTodo from './AddTodo'
-import TodoList, {checkFilter} from './TodoList'
+import TodoList from './TodoList'
 import TodoInfo from './TodoInfo'
 
-const TodoApp = ({todos, setTodos, currentFilter, setFilter}) => {
-  const addTodo = (value) => {
+const TodoApp = (props) => {
+  const {
+    todos,
+    addTodo,
+    currentFilter,
+    setFilter,
+    completeAllTodos,
+    clearCompletedTodos,
+    removeTodo,
+    toggleTodoState,
+    editTodo
+  } = props
+
+  const checkAndAddTodo = (value) => {
     // don't add empty todo
     if (value === '') {
       return false
@@ -25,59 +37,15 @@ const TodoApp = ({todos, setTodos, currentFilter, setFilter}) => {
       completed: false
     }
     // add todo and reset input box
-    setTodos([...todos, newTodo])
+    addTodo(newTodo)
     return true
-  }
-
-  const removeTodo = (index) => {
-    setTodos(
-      todos.filter((_, i) => i !== index)
-    )
-  }
-
-  const toggleTodoState = (index) => {
-    setTodos(
-      todos.map((todo, i) => {
-        if (i !== index) {
-          return todo
-        }
-        return {...todo, completed: !todo.completed}
-      })
-    )
-  }
-
-  const clearCompletedTodos = () => {
-    setTodos(
-      todos.filter(checkFilter('Active'))
-    )
-  }
-
-  const editTodo = (index, value) => {
-    // new value can't be empty string
-    if (value === '') {
-      return
-    }
-    setTodos(
-      todos.map((todo, i) => {
-        if (i !== index) {
-          return todo
-        }
-        return {...todo, value}
-      })
-    )
-  }
-
-  const completeAll = () => {
-    setTodos(
-      todos.map((todo) => ({...todo, completed: true}))
-    )
   }
 
   return (
     <div className={styles}>
       <AddTodo
-        addTodo={addTodo}
-        completeAll={completeAll}
+        addTodo={checkAndAddTodo}
+        completeAllTodos={completeAllTodos}
       />
 
       <TodoList

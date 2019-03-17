@@ -15,6 +15,10 @@ const TodoItem = ({
 
   const onKeyDown = (e) => {
     if (e.key === 'Enter') {
+      // new value can't be empty string
+      if (newValue === '') {
+        return
+      }
       editTodo(index, newValue)
       setEditing(false)
     }
