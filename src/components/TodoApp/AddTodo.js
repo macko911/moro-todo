@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {css} from 'emotion'
 
-const AddTodo = ({addTodo, completeAll}) => {
+const AddTodo = ({addTodo, completeAllTodos}) => {
   const [value, setTodo] = useState('')
 
   const onKeyDown = (e) => {
@@ -18,7 +18,7 @@ const AddTodo = ({addTodo, completeAll}) => {
     <div className={styles.wrap}>
       <span
         className={styles.toggleAll}
-        onClick={() => completeAll()}
+        onClick={() => completeAllTodos()}
       >
         ❯
       </span>
@@ -35,7 +35,7 @@ const AddTodo = ({addTodo, completeAll}) => {
 
 AddTodo.propTypes = {
   addTodo: PropTypes.func.isRequired,
-  completeAll: PropTypes.func.isRequired
+  completeAllTodos: PropTypes.func.isRequired
 }
 
 const styles = {
