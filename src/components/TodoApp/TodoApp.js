@@ -1,14 +1,15 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {css} from 'emotion'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+
+import * as actions from '../../store/actions'
 
 import AddTodo from './AddTodo'
 import TodoList, {checkFilter} from './TodoList'
 import TodoInfo from './TodoInfo'
 
-const TodoApp = () => {
-  const [todos, setTodos] = useState([])
-  const [currentFilter, setFilter] = useState('All')
-
+const TodoApp = ({todos, setTodos, currentFilter, setFilter}) => {
   const addTodo = (value) => {
     // don't add empty todo
     if (value === '') {
@@ -103,4 +104,8 @@ const styles = css`
   box-shadow: 0 0 3px 1px #e6e6e6;
 `
 
-export default TodoApp
+const mapStateToProps = (state) => state
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)

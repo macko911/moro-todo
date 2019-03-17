@@ -13,6 +13,7 @@ const TodoFilters = ({setFilter, currentFilter}) => {
     <div className={styles}>
       {FILTERS.map((filter) => (
         <span
+          key={filter}
           className={cx(currentFilter === filter && 'selected')}
           onClick={() => setFilter(filter)}
         >
