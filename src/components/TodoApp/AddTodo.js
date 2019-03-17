@@ -1,15 +1,19 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {css} from 'emotion'
 
-const AddTodo = () => {
-  const [value, setTodo] = useState('')
+const AddTodo = ({setTodo, value, addTodo}) => {
+  const onKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      addTodo()
+    }
+  }
 
   return (
     <div className={styles.wrap}>
       <input
         className={styles.input}
         onChange={e => setTodo(e.currentTarget.value)}
-
+        onKeyDown={onKeyDown}
         value={value}
       />
     </div>
