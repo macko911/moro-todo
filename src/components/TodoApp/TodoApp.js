@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {css} from 'emotion'
 
 import AddTodo from './AddTodo'
-import TodoList from './TodoList'
+import TodoList, {checkFilter} from './TodoList'
 import TodoInfo from './TodoInfo'
 
 const TodoApp = () => {
@@ -20,7 +20,7 @@ const TodoApp = () => {
       completed: false
     }
     // if todo already added, skip it
-    if (todos.map(todo => todo.value).includes(newTodo)) {
+    if (todos.map(todo => todo.value).includes(value)) {
       return
     }
     // add todo and reset input box
@@ -31,6 +31,23 @@ const TodoApp = () => {
   const removeTodo = (index) => {
     setTodos(
       todos.filter((_, i) => i !== index)
+    )
+  }
+
+  const toggleTodoState = (index) => {
+    setTodos(
+      todos.map((todo, i) => {
+        if (i !== index) {
+          return todo
+        }
+        return {...todo, completed: !todo.completed}
+      })
+    )
+  }
+
+  const clearCompletedTodos = () => {
+    setTodos(
+      todos.filter(checkFilter('Active'))
     )
   }
 
@@ -45,12 +62,15 @@ const TodoApp = () => {
       <TodoList
         todos={todos}
         removeTodo={removeTodo}
+        toggleTodoState={toggleTodoState}
+        currentFilter={currentFilter}
       />
 
       <TodoInfo
         todos={todos}
         currentFilter={currentFilter}
         setFilter={setFilter}
+        clearCompletedTodos={clearCompletedTodos}
       />
     </div>
   )

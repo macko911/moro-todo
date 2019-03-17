@@ -1,16 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {css} from 'emotion'
+import {css, cx} from 'emotion'
 
 import TodoFilters from './TodoFilters'
 
-const TodoInfo = ({todos, ...props}) => {
+import {checkFilter} from './TodoList'
+
+const TodoInfo = ({todos, clearCompletedTodos, ...props}) => {
   // hide component if there are no todos
   if (todos.length === 0) {
     return null
   }
 
-  const showClearBtn = false
+  const showClearBtn = todos.filter(checkFilter('Completed')).length > 0
 
   return (
     <div className={styles.wrap}>
@@ -20,17 +22,19 @@ const TodoInfo = ({todos, ...props}) => {
 
       <TodoFilters {...props} />
 
-      {showClearBtn ? (
-        <span>
-          Clear completed
-        </span>
-      ) : <span />}
+      <span
+        className={cx(styles.clearBtn, showClearBtn && 'visible')}
+        onClick={clearCompletedTodos}
+      >
+        Clear completed
+      </span>
     </div>
   )
 }
 
 TodoInfo.propTypes = {
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.array.isRequired,
+  clearCompletedTodos: PropTypes.func.isRequired
 }
 
 const styles = {
@@ -41,9 +45,22 @@ const styles = {
     align-items: center;
     padding: .5rem 1rem;
     width: 100%;
+    font-size: 1rem;
+    border-top: 1px solid #e6e6e6;
   `,
   itemsLeft: css`
     margin-right: 1rem;
+  `,
+  clearBtn: css`
+    visibility: hidden;
+    cursor: pointer;
+    &:hover {
+      color: black;
+      text-decoration: underline;
+    }
+    &.visible {
+      visibility: visible;
+    }
   `
 }
 
