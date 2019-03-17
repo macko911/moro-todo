@@ -51,6 +51,21 @@ const TodoApp = () => {
     )
   }
 
+  const editTodo = (index, value) => {
+    // new value can't be empty string
+    if (value === '') {
+      return
+    }
+    setTodos(
+      todos.map((todo, i) => {
+        if (i !== index) {
+          return todo
+        }
+        return {...todo, value}
+      })
+    )
+  }
+
   return (
     <div className={styles}>
       <AddTodo
@@ -64,6 +79,7 @@ const TodoApp = () => {
         removeTodo={removeTodo}
         toggleTodoState={toggleTodoState}
         currentFilter={currentFilter}
+        editTodo={editTodo}
       />
 
       <TodoInfo

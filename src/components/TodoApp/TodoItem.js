@@ -1,8 +1,29 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {css, cx} from 'emotion'
 
-const TodoItem = ({value, completed, index, removeTodo, toggleTodoState}) => {
+const TodoItem = ({
+  value,
+  completed,
+  index,
+  removeTodo,
+  editTodo,
+  toggleTodoState
+}) => {
+  const [editing, setEditing] = useState(false)
+  const [newValue, setTodoValue] = useState(value)
+
+  const onKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      editTodo(index, newValue)
+      setEditing(false)
+    }
+    if (e.key === 'Escape') {
+      // reset todo value
+      setTodoValue(value)
+      setEditing(false)
+    }
+  }
   return (
     <div className={styles.wrap}>
       <span
@@ -11,12 +32,26 @@ const TodoItem = ({value, completed, index, removeTodo, toggleTodoState}) => {
       >
         {completed && '✓'}
       </span>
-      <span className={cx(styles.value, completed && styles.completed)}>
-        {value}
-      </span>
+
+        {editing ? (
+          <input
+            autoFocus
+            className={styles.input}
+            value={newValue}
+            onChange={e => setTodoValue(e.currentTarget.value)}
+            onKeyDown={onKeyDown}
+          />
+        ) : (
+          <span
+            className={cx(styles.value, completed && styles.completed)}
+            onDoubleClick={() => setEditing(true)}
+          >
+            {value}
+          </span>
+        )}
 
       <span
-        className={styles.removeBtn}
+        className={cx(styles.removeBtn, 'visible-on-hover')}
         onClick={() => removeTodo(index)}
       >
         x
@@ -43,6 +78,10 @@ const styles = {
     justify-content: space-between;
     width: 100%;
     border-top: 1px solid #e6e6e6;
+
+    &:hover .visible-on-hover {
+      visibility: visible;
+    }
   `,
   check: css`
     border-radius: 50px;
@@ -58,11 +97,20 @@ const styles = {
     opacity: .7;
   `,
   removeBtn: css`
+    visibility: hidden;
     cursor: pointer;
   `,
   value: css`
     flex: 1;
     padding: 0 1rem;
+  `,
+  input: css`
+    padding: 0 1rem;
+    outline: 0;
+    border: 0;
+    flex: 1;
+    font-size: 1.5rem;
+    font-weight: 100;
   `
 }
 

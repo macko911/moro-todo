@@ -14,10 +14,12 @@ const TodoInfo = ({todos, clearCompletedTodos, ...props}) => {
 
   const showClearBtn = todos.filter(checkFilter('Completed')).length > 0
 
+  const activeTodosCount = todos.filter(checkFilter('Active')).length
+
   return (
     <div className={styles.wrap}>
       <span className={styles.itemsLeft}>
-        {todos.length} items left
+        {activeTodosCount} item{activeTodosCount !== 1 && 's'} left
       </span>
 
       <TodoFilters {...props} />
