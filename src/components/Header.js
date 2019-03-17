@@ -2,11 +2,7 @@ import React from 'react'
 import {css} from 'emotion'
 
 const Header = () => {
-  return (
-    <header className={styles}>
-      todos
-    </header>
-  )
+  return <header className={styles}>todos</header>
 }
 
 const styles = css`
