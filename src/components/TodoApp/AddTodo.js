@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {css} from 'emotion'
 
 const AddTodo = ({setTodo, value, addTodo}) => {
@@ -15,9 +16,16 @@ const AddTodo = ({setTodo, value, addTodo}) => {
         onChange={e => setTodo(e.currentTarget.value)}
         onKeyDown={onKeyDown}
         value={value}
+        placeholder='What needs to be done?'
       />
     </div>
   )
+}
+
+AddTodo.propTypes = {
+  setTodo: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  addTodo: PropTypes.func.isRequired
 }
 
 const styles = {
@@ -28,6 +36,8 @@ const styles = {
     font-size: 1.8rem;
     outline: none;
     color: #545454;
+    font-weight: 100;
+    min-width: 320px;
   `
 }
 
