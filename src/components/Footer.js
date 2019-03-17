@@ -1,11 +1,19 @@
 import React from 'react'
+import {css} from 'emotion'
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className={styles}>
       Created by Matej Vobornik
     </footer>
   )
 }
+
+const styles = css`
+  font-size: .7rem;
+  text-align: center;
+  color: gray;
+  padding: 1rem 0;
+`
 
 export default Footer
