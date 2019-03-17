@@ -79,6 +79,7 @@ const TodoApp = () => {
 const styles = css`
   min-width: 500px;
   margin-bottom: 1rem;
+  box-shadow: 0 0 3px 1px #e6e6e6;
 `
 
 export default TodoApp
