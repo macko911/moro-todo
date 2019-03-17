@@ -7,25 +7,25 @@ import TodoInfo from './TodoInfo'
 
 const TodoApp = () => {
   const [todos, setTodos] = useState([])
-  const [value, setTodo] = useState('')
   const [currentFilter, setFilter] = useState('All')
 
-  const addTodo = () => {
+  const addTodo = (value) => {
     // don't add empty todo
     if (value === '') {
-      return
+      return false
     }
+    // if todo already added, skip it
+    if (todos.map(todo => todo.value).includes(value)) {
+      return false
+    }
+    // create new todo
     const newTodo = {
       value,
       completed: false
     }
-    // if todo already added, skip it
-    if (todos.map(todo => todo.value).includes(value)) {
-      return
-    }
     // add todo and reset input box
     setTodos([...todos, newTodo])
-    setTodo('')
+    return true
   }
 
   const removeTodo = (index) => {
@@ -66,12 +66,17 @@ const TodoApp = () => {
     )
   }
 
+  const completeAll = () => {
+    setTodos(
+      todos.map((todo) => ({...todo, completed: true}))
+    )
+  }
+
   return (
     <div className={styles}>
       <AddTodo
-        value={value}
-        setTodo={setTodo}
         addTodo={addTodo}
+        completeAll={completeAll}
       />
 
       <TodoList
