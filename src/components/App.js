@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react'
 
 import Header from './Header'
 import Footer from './Footer'
 import TodoApp from './TodoApp'
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <Header />
+const App = () => {
+  return (
+    <>
+      <Header />
 
-        <TodoApp />
+      <TodoApp />
 
-        <Footer />
-      </>
-    );
-  }
+      <Footer />
+    </>
+  )
 }
 
-export default App;
+export default App
