@@ -22,29 +22,10 @@ const TodoApp = (props) => {
     editTodo
   } = props
 
-  const checkAndAddTodo = (value) => {
-    // don't add empty todo
-    if (value === '') {
-      return false
-    }
-    // if todo already added, skip it
-    if (todos.map(todo => todo.value).includes(value)) {
-      return false
-    }
-    // create new todo
-    const newTodo = {
-      value,
-      completed: false
-    }
-    // add todo and reset input box
-    addTodo(newTodo)
-    return true
-  }
-
   return (
     <div className={styles}>
       <AddTodo
-        addTodo={checkAndAddTodo}
+        addTodo={addTodo}
         completeAllTodos={completeAllTodos}
       />
 

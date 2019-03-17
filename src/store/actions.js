@@ -34,7 +34,26 @@ export const editTodo = (index, value) => ({
   value
 })
 
-export const addTodo = (todo) => ({
-  type: types.ADD_TODO,
-  todo
-})
+export const addTodo = (value) => (dispatch, getState) => {
+  const {todos} = getState()
+
+  // don't add empty todo
+  if (value === '') {
+    return false
+  }
+  // if todo already added, skip it
+  if (todos.map(todo => todo.value).includes(value)) {
+    return false
+  }
+  // create new todo
+  const newTodo = {
+    value,
+    completed: false
+  }
+  // add todo and reset input box
+  dispatch({
+    type: types.ADD_TODO,
+    todo: newTodo
+  })
+  return true
+}
