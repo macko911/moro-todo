@@ -38,6 +38,7 @@ const styles = {
     color: #545454;
     font-weight: 100;
     min-width: 320px;
+    width: 100%;
   `
 }
 

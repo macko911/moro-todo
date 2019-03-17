@@ -31,6 +31,7 @@ const styles = {
     font-size: 1.5rem;
     display: flex;
     justify-content: space-between;
+    width: 100%;
   `,
   removeBtn: css`
     cursor: pointer;

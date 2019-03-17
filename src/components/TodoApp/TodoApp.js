@@ -1,11 +1,14 @@
 import React, {useState} from 'react'
+import {css} from 'emotion'
 
 import AddTodo from './AddTodo'
 import TodoList from './TodoList'
+import TodoInfo from './TodoInfo'
 
 const TodoApp = () => {
   const [todos, setTodos] = useState([])
   const [newTodo, setTodo] = useState('')
+  const [currentFilter, setFilter] = useState('All')
 
   const addTodo = () => {
     // don't add empty todo
@@ -28,7 +31,7 @@ const TodoApp = () => {
   }
 
   return (
-    <div>
+    <div className={styles}>
       <AddTodo
         value={newTodo}
         setTodo={setTodo}
@@ -39,8 +42,19 @@ const TodoApp = () => {
         todos={todos}
         removeTodo={removeTodo}
       />
+
+      <TodoInfo
+        todos={todos}
+        currentFilter={currentFilter}
+        setFilter={setFilter}
+      />
     </div>
   )
 }
+
+const styles = css`
+  min-width: 500px;
+  margin-bottom: 1rem;
+`
 
 export default TodoApp
