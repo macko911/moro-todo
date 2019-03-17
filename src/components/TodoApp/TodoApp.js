@@ -21,6 +21,12 @@ const TodoApp = () => {
     setTodo('')
   }
 
+  const removeTodo = (index) => {
+    setTodos(
+      todos.filter((_, i) => i !== index)
+    )
+  }
+
   return (
     <div>
       <AddTodo
@@ -31,6 +37,7 @@ const TodoApp = () => {
 
       <TodoList
         todos={todos}
+        removeTodo={removeTodo}
       />
     </div>
   )
