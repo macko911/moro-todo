@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {css} from 'emotion'
 
-const TodoItem = ({value, index, removeTodo}) => {
+const TodoItem = ({data, index, removeTodo}) => {
+  const {value} = data
   return (
     <div className={styles.wrap}>
       {value}
@@ -19,7 +20,7 @@ const TodoItem = ({value, index, removeTodo}) => {
 }
 
 TodoItem.propTypes = {
-  value: PropTypes.string.isRequired,
+  data: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   removeTodo: PropTypes.func.isRequired
 }

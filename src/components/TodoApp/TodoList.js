@@ -7,7 +7,7 @@ const TodoList = ({todos, ...props}) => {
   return todos.map((todo, index) => (
     <TodoItem
       {...props}
-      value={todo}
+      data={todo}
       index={index}
       key={index}
     />
