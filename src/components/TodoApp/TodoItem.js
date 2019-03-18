@@ -5,7 +5,6 @@ import {css, cx} from 'emotion'
 const TodoItem = ({
   text,
   completed,
-  index,
   id,
   removeTodo,
   editTodo,
@@ -20,7 +19,7 @@ const TodoItem = ({
       if (newValue === '') {
         return
       }
-      editTodo(index, newValue)
+      editTodo(id, newValue)
       setEditing(false)
     }
     if (e.key === 'Escape') {
@@ -57,7 +56,7 @@ const TodoItem = ({
 
       <span
         className={cx(styles.removeBtn, 'visible-on-hover')}
-        onClick={() => removeTodo(index)}
+        onClick={() => removeTodo(id)}
       >
         x
       </span>
@@ -69,7 +68,6 @@ const TodoItem = ({
 TodoItem.propTypes = {
   text: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
-  index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   removeTodo: PropTypes.func.isRequired,
   toggleTodoState: PropTypes.func.isRequired

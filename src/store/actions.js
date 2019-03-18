@@ -15,23 +15,39 @@ export const setFilter = (filter) => ({
 export const completeAllTodos = () => async (dispatch, getState) => {
   const {todos} = getState()
 
-  // filter only todo ids of active items
-  const activeTodoIds = todos.filter(checkFilter('Active'))
+  // filter only active todos
+  const activeTodos = todos.filter(checkFilter('Active'))
 
   // dispatch action for every item
   const markAsComplete = (todo) => dispatch(toggleTodoState(todo.id, true))
 
-  await Promise.all(activeTodoIds.map(markAsComplete))
+  await Promise.all(activeTodos.map(markAsComplete))
 }
 
-export const clearCompletedTodos = () => ({
-  type: types.CLEAR_COMPLETED_TODOS
-})
+export const clearCompletedTodos = () => async (dispatch, getState) => {
+  const {todos} = getState()
 
-export const removeTodo = (index) => ({
-  type: types.REMOVE_TODO,
-  index
-})
+  // filter only completed todos
+  const completedTodos = todos.filter(checkFilter('Completed'))
+
+  // dispatch remove action for every item
+  const remove = (todo) => dispatch(removeTodo(todo.id))
+
+  await Promise.all(completedTodos.map(remove))
+}
+
+export const removeTodo = (todoId) => async (dispatch) => {
+  try {
+    await db.removeTodo(todoId)
+    dispatch({
+      type: types.REMOVE_TODO,
+      todoId
+    })
+  } catch (err) {
+    console.log(err)
+    console.log('Failed to remove todo.')
+  }
+}
 
 export const toggleTodoState = (todoId, completed) => async (dispatch) => {
   try {
@@ -50,11 +66,19 @@ export const toggleTodoState = (todoId, completed) => async (dispatch) => {
   }
 }
 
-export const editTodo = (index, value) => ({
-  type: types.EDIT_TODO,
-  index,
-  value
-})
+export const editTodo = (todoId, text) => async (dispatch) => {
+  try {
+    await db.editTodo(todoId, text)
+    dispatch({
+      type: types.EDIT_TODO,
+      todoId,
+      text
+    })
+  } catch (err) {
+    console.log(err)
+    console.log('Failed to edit todo.')
+  }
+}
 
 export const addTodo = (text) => async (dispatch, getState) => {
   const {todos} = getState()

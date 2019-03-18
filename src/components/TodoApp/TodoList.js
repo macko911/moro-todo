@@ -20,8 +20,8 @@ const TodoList = ({todos, currentFilter, ...props}) => {
     .map(addIndex)
     .filter(checkFilter(currentFilter))
 
-  return filteredTodos.map((todo, index) => (
-    <TodoItem {...props} {...todo} key={index} />
+  return filteredTodos.map((todo) => (
+    <TodoItem {...props} {...todo} key={todo.id} />
   ))
 }
 

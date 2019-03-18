@@ -43,10 +43,11 @@ class Database {
     })
   }
 
-  editTodo (todoId) {
+  editTodo (todoId, text) {
     return request({
       endpoint: `/todos/${todoId}`,
-      method: 'post'
+      method: 'post',
+      data: {text}
     })
   }
 
