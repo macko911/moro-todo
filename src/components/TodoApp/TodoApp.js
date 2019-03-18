@@ -9,6 +9,7 @@ import {useAsync} from '../../hooks'
 import AddTodo from './AddTodo'
 import TodoList from './TodoList'
 import TodoInfo from './TodoInfo'
+import TodoError from './TodoError'
 import Spinner from '../Spinner'
 
 const TodoApp = (props) => {
@@ -22,7 +23,9 @@ const TodoApp = (props) => {
     removeTodo,
     toggleTodoState,
     editTodo,
-    fetchTodos
+    fetchTodos,
+    error,
+    setError
   } = props
 
   const isFetchingTodos = useAsync(fetchTodos)
@@ -59,6 +62,9 @@ const TodoApp = (props) => {
         setFilter={setFilter}
         clearCompletedTodos={clearCompletedTodos}
       />
+
+      <TodoError error={error} setError={setError} />
+
     </div>
   )
 }

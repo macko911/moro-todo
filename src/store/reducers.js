@@ -43,7 +43,18 @@ const currentFilter = (state = 'All', action) => {
   }
 }
 
+const error = (state = null, action) => {
+  switch (action.type) {
+    case types.SET_ERROR:
+      return action.err
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   todos,
-  currentFilter
+  currentFilter,
+  error
 })

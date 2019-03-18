@@ -12,7 +12,7 @@ export const fetchTodos = () => async (dispatch) => {
     })
   } catch (err) {
     console.log(err)
-    console.log('Failed to fetch todos.')
+    dispatch(setError('Failed to fetch todos.'))
   }
 }
 
@@ -43,13 +43,14 @@ export const clearCompletedTodos = () => async (dispatch, getState) => {
 export const removeTodo = (todoId) => async (dispatch) => {
   try {
     await db.removeTodo(todoId)
+    // throw Error('test error!')
     dispatch({
       type: types.REMOVE_TODO,
       todoId
     })
   } catch (err) {
     console.log(err)
-    console.log('Failed to remove todo.')
+    dispatch(setError('Failed to remove todo.'))
   }
 }
 
@@ -66,7 +67,7 @@ export const toggleTodoState = (todoId, completed) => async (dispatch) => {
     })
   } catch (err) {
     console.log(err)
-    console.log('Failed to toggle todo item state.')
+    dispatch(setError('Failed to mark item as (in)complete.'))
   }
 }
 
@@ -80,7 +81,7 @@ export const editTodo = (todoId, text) => async (dispatch) => {
     })
   } catch (err) {
     console.log(err)
-    console.log('Failed to edit todo.')
+    dispatch(setError('Failed to edit todo.'))
   }
 }
 
@@ -108,7 +109,7 @@ export const addTodo = (text) => async (dispatch, getState) => {
     return true
   } catch (err) {
     console.log(err)
-    console.log('Failed to add new todo.')
+    dispatch(setError('Failed to add new todo.'))
     return false
   }
 }
@@ -116,4 +117,9 @@ export const addTodo = (text) => async (dispatch, getState) => {
 export const setFilter = (filter) => ({
   type: types.SET_FILTER,
   filter
+})
+
+export const setError = (err) => ({
+  type: types.SET_ERROR,
+  err
 })
