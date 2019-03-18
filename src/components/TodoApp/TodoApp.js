@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {css} from 'emotion'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -12,22 +13,7 @@ import TodoInfo from './TodoInfo'
 import TodoError from './TodoError'
 import Spinner from '../Spinner'
 
-const TodoApp = (props) => {
-  const {
-    todos,
-    addTodo,
-    currentFilter,
-    setFilter,
-    completeAllTodos,
-    clearCompletedTodos,
-    removeTodo,
-    toggleTodoState,
-    editTodo,
-    fetchTodos,
-    error,
-    setError
-  } = props
-
+const TodoApp = ({fetchTodos, ...props}) => {
   const isFetchingTodos = useAsync(fetchTodos)
 
   if (isFetchingTodos) {
@@ -43,30 +29,19 @@ const TodoApp = (props) => {
 
   return (
     <div className={styles.wrap}>
-      <AddTodo
-        addTodo={addTodo}
-        completeAllTodos={completeAllTodos}
-      />
+      <AddTodo {...props} />
 
-      <TodoList
-        todos={todos}
-        removeTodo={removeTodo}
-        toggleTodoState={toggleTodoState}
-        currentFilter={currentFilter}
-        editTodo={editTodo}
-      />
+      <TodoList {...props} />
 
-      <TodoInfo
-        todos={todos}
-        currentFilter={currentFilter}
-        setFilter={setFilter}
-        clearCompletedTodos={clearCompletedTodos}
-      />
+      <TodoInfo {...props} />
 
-      <TodoError error={error} setError={setError} />
-
+      <TodoError {...props} />
     </div>
   )
+}
+
+TodoApp.propTypes = {
+  fetchTodos: PropTypes.func.isRequired
 }
 
 const styles = {
