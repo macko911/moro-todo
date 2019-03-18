@@ -22,6 +22,53 @@ class Database {
       endpoint: '/todos'
     })
   }
+
+  createTodo () {
+    return request({
+      endpoint: '/todos',
+      method: 'post'
+    })
+  }
+
+  fetchCompletedTodos () {
+    return request({
+      endpoint: '/todos/completed'
+    })
+  }
+
+  fetchIncompletedTodos () {
+    return request({
+      endpoint: '/todos/incompleted'
+    })
+  }
+
+  editTodo (todoId) {
+    return request({
+      endpoint: `/todos/${todoId}`,
+      method: 'post'
+    })
+  }
+
+  removeTodo (todoId) {
+    return request({
+      endpoint: `/todos/${todoId}`,
+      method: 'delete'
+    })
+  }
+
+  completeTodo (todoId) {
+    return request({
+      endpoint: `/todos/${todoId}/complete`,
+      method: 'post'
+    })
+  }
+
+  incompleteTodo (todoId) {
+    return request({
+      endpoint: `/todos/${todoId}/incomplete`,
+      method: 'post'
+    })
+  }
 }
 
 export default new Database()
