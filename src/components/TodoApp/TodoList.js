@@ -13,12 +13,8 @@ export const checkFilter = (filter) => (todo) => {
   return true
 }
 
-const addIndex = (todo, index) => ({...todo, index})
-
 const TodoList = ({todos, currentFilter, ...props}) => {
-  const filteredTodos = todos
-    .map(addIndex)
-    .filter(checkFilter(currentFilter))
+  const filteredTodos = todos.filter(checkFilter(currentFilter))
 
   return filteredTodos.map((todo) => (
     <TodoItem {...props} {...todo} key={todo.id} />
