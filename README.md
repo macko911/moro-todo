@@ -1,5 +1,19 @@
-## Morosystems TODOMVC Test
+# Morosystems TODOMVC Test
 
-TODO: finish readme
+### Development
+> Runs both client and backend development servers
+```bash
+npm start
+```
+or
+```bash
+yarn start
+```
+
+### Code formatting
+> Runs Prettier on the /src folder
+```bash
+yarn lint
+```
 
 Written by Matej Vobornik
