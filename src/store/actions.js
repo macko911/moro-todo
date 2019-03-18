@@ -2,15 +2,19 @@ import * as types from './types'
 import db from '../database'
 import {checkFilter} from '../components/TodoApp/TodoList'
 
-export const setTodos = (todos) => ({
-  type: types.SET_TODOS,
-  todos
-})
-
-export const setFilter = (filter) => ({
-  type: types.SET_FILTER,
-  filter
-})
+export const fetchTodos = () => async (dispatch) => {
+  try {
+    const res = await db.fetchTodos()
+    const todos = res.data
+    dispatch({
+      type: types.SET_TODOS,
+      todos
+    })
+  } catch (err) {
+    console.log(err)
+    console.log('Failed to fetch todos.')
+  }
+}
 
 export const completeAllTodos = () => async (dispatch, getState) => {
   const {todos} = getState()
@@ -109,13 +113,7 @@ export const addTodo = (text) => async (dispatch, getState) => {
   }
 }
 
-export const fetchTodos = () => async (dispatch) => {
-  try {
-    const res = await db.fetchTodos()
-    const todos = res.data
-    dispatch(setTodos(todos))
-  } catch (err) {
-    console.log(err)
-    console.log('Failed to fetch todos.')
-  }
-}
+export const setFilter = (filter) => ({
+  type: types.SET_FILTER,
+  filter
+})
