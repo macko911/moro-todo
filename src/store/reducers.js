@@ -15,8 +15,8 @@ const todos = (state = [], action) => {
       return state.filter((_, i) => i !== action.index)
 
     case types.TOGGLE_TODO_STATE:
-      return state.map((todo, i) => {
-        if (i !== action.index) {
+      return state.map((todo) => {
+        if (todo.id !== action.todoId) {
           return todo
         }
         return {...todo, completed: !todo.completed}

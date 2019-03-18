@@ -1,5 +1,6 @@
 import * as types from './types'
 import db from '../database'
+import {checkFilter} from '../components/TodoApp/TodoList'
 
 export const setTodos = (todos) => ({
   type: types.SET_TODOS,
@@ -11,9 +12,17 @@ export const setFilter = (filter) => ({
   filter
 })
 
-export const completeAllTodos = () => ({
-  type: types.COMPLETE_ALL_TODOS
-})
+export const completeAllTodos = () => async (dispatch, getState) => {
+  const {todos} = getState()
+
+  // filter only todo ids of active items
+  const activeTodoIds = todos.filter(checkFilter('Active'))
+
+  // dispatch action for every item
+  const markAsComplete = (todo) => dispatch(toggleTodoState(todo.id, true))
+
+  await Promise.all(activeTodoIds.map(markAsComplete))
+}
 
 export const clearCompletedTodos = () => ({
   type: types.CLEAR_COMPLETED_TODOS
@@ -24,10 +33,22 @@ export const removeTodo = (index) => ({
   index
 })
 
-export const toggleTodoState = (index) => ({
-  type: types.TOGGLE_TODO_STATE,
-  index
-})
+export const toggleTodoState = (todoId, completed) => async (dispatch) => {
+  try {
+    if (completed) {
+      await db.completeTodo(todoId)
+    } else {
+      await db.incompleteTodo(todoId)
+    }
+    dispatch({
+      type: types.TOGGLE_TODO_STATE,
+      todoId
+    })
+  } catch (err) {
+    console.log(err)
+    console.log('Failed to toggle todo item state.')
+  }
+}
 
 export const editTodo = (index, value) => ({
   type: types.EDIT_TODO,

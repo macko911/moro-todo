@@ -6,6 +6,7 @@ const TodoItem = ({
   text,
   completed,
   index,
+  id,
   removeTodo,
   editTodo,
   toggleTodoState
@@ -32,7 +33,7 @@ const TodoItem = ({
     <div className={styles.wrap}>
       <span
         className={styles.check}
-        onClick={() => toggleTodoState(index)}
+        onClick={() => toggleTodoState(id, !completed)}
       >
         {completed && '✓'}
       </span>
@@ -69,6 +70,7 @@ TodoItem.propTypes = {
   text: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   removeTodo: PropTypes.func.isRequired,
   toggleTodoState: PropTypes.func.isRequired
 }
