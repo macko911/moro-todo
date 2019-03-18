@@ -5,14 +5,14 @@ const BASE_URL = 'http://localhost:8080'
 const request = ({
   endpoint,
   method = 'get',
-  body
+  data
 }) => {
   const url = BASE_URL + endpoint
 
   return axios({
     url,
     method,
-    body
+    data
   })
 }
 
@@ -23,10 +23,11 @@ class Database {
     })
   }
 
-  createTodo () {
+  createTodo (text) {
     return request({
       endpoint: '/todos',
-      method: 'post'
+      method: 'post',
+      data: {text}
     })
   }
 

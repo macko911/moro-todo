@@ -35,7 +35,7 @@ export const editTodo = (index, value) => ({
   value
 })
 
-export const addTodo = (text) => (dispatch, getState) => {
+export const addTodo = (text) => async (dispatch, getState) => {
   const {todos} = getState()
 
   // don't add empty todo
@@ -46,17 +46,22 @@ export const addTodo = (text) => (dispatch, getState) => {
   if (todos.map(todo => todo.text).includes(text)) {
     return false
   }
-  // create new todo
-  const newTodo = {
-    text,
-    completed: false
+  try {
+    // create new todo on backend
+    const res = await db.createTodo(text)
+    const newTodo = res.data
+
+    // add todo and reset input box
+    dispatch({
+      type: types.ADD_TODO,
+      todo: newTodo
+    })
+    return true
+  } catch (err) {
+    console.log(err)
+    console.log('Failed to add new todo.')
+    return false
   }
-  // add todo and reset input box
-  dispatch({
-    type: types.ADD_TODO,
-    todo: newTodo
-  })
-  return true
 }
 
 export const fetchTodos = () => async (dispatch) => {
@@ -65,6 +70,7 @@ export const fetchTodos = () => async (dispatch) => {
     const todos = res.data
     dispatch(setTodos(todos))
   } catch (err) {
+    console.log(err)
     console.log('Failed to fetch todos.')
   }
 }

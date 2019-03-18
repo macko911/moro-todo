@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {css} from 'emotion'
+// import {useAsync} from '../../hooks'
 
 const AddTodo = ({addTodo, completeAllTodos}) => {
   const [value, setTodo] = useState('')
 
-  const onKeyDown = (e) => {
+  const onKeyDown = async (e) => {
     if (e.key === 'Enter') {
-      const success = addTodo(value)
+      const success = await addTodo(value)
       if (success) {
         setTodo('')
       }
