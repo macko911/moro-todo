@@ -20,9 +20,7 @@ const TodoApp = ({fetchTodos, ...props}) => {
     return (
       <div>
         <Spinner className={styles.spinner} />
-        <div className={styles.text}>
-          Fetching todos...
-        </div>
+        <div className={styles.text}>Fetching todos...</div>
       </div>
     )
   }
@@ -65,4 +63,7 @@ const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoApp)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoApp)

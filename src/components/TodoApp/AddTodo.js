@@ -17,18 +17,15 @@ const AddTodo = ({addTodo, completeAllTodos}) => {
 
   return (
     <div className={styles.wrap}>
-      <span
-        className={styles.toggleAll}
-        onClick={() => completeAllTodos()}
-      >
+      <span className={styles.toggleAll} onClick={() => completeAllTodos()}>
         ❯
       </span>
       <input
         className={styles.input}
-        onChange={e => setTodo(e.currentTarget.value)}
+        onChange={(e) => setTodo(e.currentTarget.value)}
         onKeyDown={onKeyDown}
         value={value}
-        placeholder='What needs to be done?'
+        placeholder="What needs to be done?"
       />
     </div>
   )
@@ -63,7 +60,7 @@ const styles = {
     height: 2rem;
     text-align: center;
     transform: rotate(90deg);
-    opacity: .6;
+    opacity: 0.6;
     &:hover {
       opacity: 1;
     }

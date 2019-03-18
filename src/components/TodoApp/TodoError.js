@@ -8,10 +8,10 @@ const TodoError = ({error, setError}) => {
   }
   return (
     <div className={styles}>
-      <span className='error-msg' role="img" aria-label='warning'>
+      <span className="error-msg" role="img" aria-label="warning">
         ⚠️ {error}
       </span>
-      <span className='clear-error-btn' onClick={() => setError(null)}>
+      <span className="clear-error-btn" onClick={() => setError(null)}>
         x
       </span>
     </div>

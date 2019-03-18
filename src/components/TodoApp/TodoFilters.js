@@ -2,11 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {css, cx} from 'emotion'
 
-const FILTERS = [ 
-  'All',
-  'Active',
-  'Completed'
-]
+const FILTERS = ['All', 'Active', 'Completed']
 
 const TodoFilters = ({setFilter, currentFilter}) => {
   return (
@@ -31,10 +27,10 @@ TodoFilters.propTypes = {
 const styles = css`
   display: flex;
   span {
-    margin-right: .5rem;
-    padding: .4rem .8rem;
+    margin-right: 0.5rem;
+    padding: 0.4rem 0.8rem;
     cursor: pointer;
-    opacity: .8;
+    opacity: 0.8;
     border: 1px solid transparent;
     &.selected,
     &:hover {

@@ -5,7 +5,7 @@ export const useAsync = (asyncFunc) => {
   const [isLoading, setLoading] = useState(false)
 
   // toggle isLoading state before and after async function call
-  async function asyncFuncWrap () {
+  async function asyncFuncWrap() {
     setLoading(true)
     await asyncFunc()
     setLoading(false)

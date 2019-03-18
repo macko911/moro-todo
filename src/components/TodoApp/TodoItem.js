@@ -37,22 +37,22 @@ const TodoItem = ({
         {completed && '✓'}
       </span>
 
-        {editing ? (
-          <input
-            autoFocus
-            className={styles.input}
-            value={newValue}
-            onChange={e => setTodoValue(e.currentTarget.value)}
-            onKeyDown={onKeyDown}
-          />
-        ) : (
-          <span
-            className={cx(styles.value, completed && styles.completed)}
-            onDoubleClick={() => setEditing(true)}
-          >
-            {text}
-          </span>
-        )}
+      {editing ? (
+        <input
+          autoFocus
+          className={styles.input}
+          value={newValue}
+          onChange={(e) => setTodoValue(e.currentTarget.value)}
+          onKeyDown={onKeyDown}
+        />
+      ) : (
+        <span
+          className={cx(styles.value, completed && styles.completed)}
+          onDoubleClick={() => setEditing(true)}
+        >
+          {text}
+        </span>
+      )}
 
       <span
         className={cx(styles.removeBtn, 'visible-on-hover')}
@@ -61,7 +61,6 @@ const TodoItem = ({
         x
       </span>
     </div>
-
   )
 }
 
@@ -98,7 +97,7 @@ const styles = {
   `,
   completed: css`
     text-decoration: line-through;
-    opacity: .7;
+    opacity: 0.7;
   `,
   removeBtn: css`
     visibility: hidden;

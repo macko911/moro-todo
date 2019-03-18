@@ -2,11 +2,7 @@ import axios from 'axios'
 
 const BASE_URL = 'http://localhost:8080'
 
-const request = ({
-  endpoint,
-  method = 'get',
-  data
-}) => {
+const request = ({endpoint, method = 'get', data}) => {
   const url = BASE_URL + endpoint
 
   return axios({
@@ -17,13 +13,13 @@ const request = ({
 }
 
 class Database {
-  fetchTodos () {
+  fetchTodos() {
     return request({
       endpoint: '/todos'
     })
   }
 
-  createTodo (text) {
+  createTodo(text) {
     return request({
       endpoint: '/todos',
       method: 'post',
@@ -31,19 +27,19 @@ class Database {
     })
   }
 
-  fetchCompletedTodos () {
+  fetchCompletedTodos() {
     return request({
       endpoint: '/todos/completed'
     })
   }
 
-  fetchIncompletedTodos () {
+  fetchIncompletedTodos() {
     return request({
       endpoint: '/todos/incompleted'
     })
   }
 
-  editTodo (todoId, text) {
+  editTodo(todoId, text) {
     return request({
       endpoint: `/todos/${todoId}`,
       method: 'post',
@@ -51,21 +47,21 @@ class Database {
     })
   }
 
-  removeTodo (todoId) {
+  removeTodo(todoId) {
     return request({
       endpoint: `/todos/${todoId}`,
       method: 'delete'
     })
   }
 
-  completeTodo (todoId) {
+  completeTodo(todoId) {
     return request({
       endpoint: `/todos/${todoId}/complete`,
       method: 'post'
     })
   }
 
-  incompleteTodo (todoId) {
+  incompleteTodo(todoId) {
     return request({
       endpoint: `/todos/${todoId}/incomplete`,
       method: 'post'

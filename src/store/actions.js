@@ -93,7 +93,7 @@ export const addTodo = (text) => async (dispatch, getState) => {
     return false
   }
   // if todo already added, skip it
-  if (todos.map(todo => todo.text).includes(text)) {
+  if (todos.map((todo) => todo.text).includes(text)) {
     return false
   }
   try {
